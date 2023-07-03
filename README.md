@@ -14,7 +14,7 @@
 
 ```
  git clone https://github.com/kmsarabu/aws_sct_mac.git
- sudo docker build --rm --platform linux/amd64 --force-rm=true --no-cache=true -t aws_sct .
+ sudo docker buildx build --rm --platform linux/amd64 --force-rm=true --no-cache=true -t aws_sct .
 ```
 
 ## Run the container

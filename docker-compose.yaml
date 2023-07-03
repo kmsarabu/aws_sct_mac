@@ -3,6 +3,8 @@ version: "3.0"
 services:
   sct:
     image: aws_sct_mac:latest
+    build: 
+     context: ./
     container_name: aws_sct_mac
     hostname: oimadmin
     command: /bin/bash -c "sleep 5s; /u01/oracle/dockertools/createDomainAndStart.sh"
@@ -15,26 +17,6 @@ services:
       - DB_PASSWORD=${DC_ORCL_SYSPWD}
       - DB_SCHEMA_PASSWORD=${DC_RCU_SCHPWD}
       - RCUPREFIX=${DC_RCU_OIMPFX}
-    volumes:
-      - ${DC_DDIR_OIM}:/u01/oracle/user_projects
-
-  soams:
-    image: ${OIG_IMAGE}
-    container_name: soams
-    hostname: soams
-    depends_on:
-      - "oimadmin"
-    command: /bin/bash -c "/u01/oracle/dockertools/startMS.sh"
-    ports:
-      - "8001:8001"
-      - "8002:8002"
-      - "8003:8003"
-    environment:
-      - ADMIN_HOST=${DC_HOSTNAME}
-      - ADMIN_PORT=7001
-      - ADMIN_PASSWORD=${DC_ADMIN_PWD}
-      - MANAGED_SERVER=soa_server1
-      - MS_HOST=${DC_HOSTNAME}
     volumes:
       - ${DC_DDIR_OIM}:/u01/oracle/user_projects
 
